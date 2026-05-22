@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Servicios TI, Design & Equipos | Ridgemugs Colombia</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="icon" type="image/png" href="images/icon/marca.png">
+</head>
+<body>
+
+<div id="header-placeholder"></div>
+
+<main>
+    <div class="services-nav" id="servicesNav">
+        <div class="container">
+            <div class="services-nav-header">
+                <span class="services-nav-title">Nuestros Servicios TI, Design & Equipos</span>
+            </div>
+            <div class="services-nav-links">
+                <a href="#precios-seccion"><i class="fas fa-tag"></i> Precios</a>
+                <a href="#packs-seccion"><i class="fas fa-boxes"></i> Packs</a>
+                <a href="#equipos-seccion"><i class="fas fa-laptop"></i> Equipos</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="alianza-unilago">
+            <p><strong>Trabajamos en alianza con laboratorios técnicos especializados y proveedores certificados del sector de Unilago (Bogotá, Colombia), reconocidos por su amplia trayectoria en reparación, diagnóstico tecnológico y comercialización de productos certificados. Esto nos permite garantizar calidad, soporte confiable y respaldo integral en cada uno de nuestros servicios y equipos.</strong></p>
+        </div>
+
+        <div id="precios-seccion" class="servicios-seccion">
+            <h3 class="servicios-titulo-seccion"><i class="fas fa-tag"></i> Precios por Servicio Individual</h3>
+            <div id="precios-grid" class="servicios-grid-precios"><p>Cargando servicios...</p></div>
+        </div>
+
+        <div id="packs-seccion" class="servicios-seccion">
+            <h3 class="servicios-titulo-seccion"><i class="fas fa-boxes"></i> Packs Empresariales</h3>
+            <div id="packs-grid" class="servicios-grid-packs"><p>Cargando packs...</p></div>
+        </div>
+
+        <div id="equipos-seccion" class="servicios-seccion">
+            <h3 class="servicios-titulo-seccion"><i class="fas fa-laptop"></i> Equipos (Portátiles Reacondicionados)</h3>
+            <div id="equipos-grid" class="servicios-grid-precios equipos-grid"><p>Cargando equipos...</p></div>
+        </div>
+    </div>
+</main>
+
+<div id="footer-placeholder"></div>
+
+<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+<script src="js/include.js"></script>
+<script src="js/services.js"></script>
+<script src="js/search.js"></script>
+<script>
+(function() {
+    const nav = document.querySelector('.services-nav');
+    if (!nav) return;
+
+    function pegarNav() {
+        if (window.innerWidth >= 768) {
+            nav.style.removeProperty('top');  // el CSS se encarga en escritorio
+            return;
+        }
+        // Móvil: calcular altura real del header
+        const header = document.querySelector('.site-header');
+        if (!header) return;
+
+        requestAnimationFrame(() => {
+            nav.style.top = header.getBoundingClientRect().height + 'px';
+        });
+    }
+
+    window.addEventListener('load', pegarNav);
+    window.addEventListener('resize', pegarNav);
+    window.addEventListener('headerReady', pegarNav);
+    if (document.readyState === 'complete' || document.readyState === 'interactive') {
+        setTimeout(pegarNav, 50);
+    } else {
+        document.addEventListener('DOMContentLoaded', () => setTimeout(pegarNav, 50));
+    }
+})();
+</script>
+</body>
+</html>

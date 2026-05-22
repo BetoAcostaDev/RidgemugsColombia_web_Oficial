@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Productos | Ridgemugs Colombia</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+    <link rel="icon" type="image/png" href="images/icon/marca.png">
+</head>
+<body>
+
+<div id="header-placeholder"></div>
+
+<main>
+    <div class="container">
+        <h2 style="text-align: center; margin: 40px 0 20px;">Nuestros productos</h2>
+
+        <!-- =====================================================
+             MULTIMEDIA: carrusel de imágenes + videos demostrativos
+             ===================================================== -->
+        <div class="multimedia-grid">
+            <!-- Carrusel de productos entregados -->
+            <div class="multimedia-item">
+                <div class="swiper mySwiper">
+                    <div class="swiper-wrapper">
+                        <div class="swiper-slide"><img src="images/carrusel/muckup-mug-pastel-tapa-base-silicona_.jpg" alt="Mug base Tapa Silicona Pastel" class="carrusel-img-clickable"></div>
+                        <div class="swiper-slide"><img src="images/carrusel/muckup-mug-oreja-conejo_mary.jpg" alt="Mug Oreja Conejo" class="carrusel-img-clickable"></div>
+                        <div class="swiper-slide"><img src="images/carrusel/muckup-mug-oreja-flor.jpg" alt="Mug Oreja Flor" class="carrusel-img-clickable"></div>
+                        <div class="swiper-slide"><img src="images/carrusel/muckup-mug-magico-rojo.jpg" alt="Mug Mágico" class="carrusel-img-clickable"></div>
+                    </div>
+                    <div class="swiper-pagination"></div>
+                </div>
+                <p class="multimedia-titulo">Productos Entregados</p>
+            </div>
+
+            <!-- Video: Mug termocromático -->
+            <div class="multimedia-item">
+                <video class="demo-video video-clickable" autoplay muted loop playsinline>
+                    <source src="images/video-products/mug-termocromio.mp4" type="video/mp4">
+                </video>
+                <p class="multimedia-titulo">Mug Mágico (Termocromático)</p>
+            </div>
+            <!-- Video: Mug + DTF -->
+            <div class="multimedia-item">
+                <video class="demo-video video-clickable" autoplay muted loop playsinline>
+                    <source src="images/video-products/Mi video.mp4" type="video/mp4">
+                </video>
+                <p class="multimedia-titulo">Mug Mágico (Termocromático) + DTF</p>
+            </div>
+        </div>
+
+        <!-- =====================================================
+             RECOMENDACIONES DE CUIDADO
+             Cambio de color: ahora usa la paleta tech (azul oscuro)
+             ===================================================== -->
+        <div style="background: var(--color-dark); color: #ffffff; border-radius: 16px; padding: 20px; margin: 40px 0;">
+            <h3 style="text-align: center;">Recomendaciones</h3>
+            <p style="text-align: center;"><strong>NO olvides preguntar por disponibilidad de Color y cantidades</strong></p>
+            <div style="display: flex; justify-content: space-around; flex-wrap: wrap; gap: 20px; margin-top: 20px;">
+                <details>
+                    <summary><strong>Recomendaciones después de recibir el producto</strong></summary>
+                    <ul class="recomendaciones-texto">
+                        <li><strong>NO</strong> exponer al sol</li>
+                        <li><strong>NO</strong> usar en hornos microondas</li>
+                        <li><strong>NO</strong> lavar con esponjas abrasiva</li>
+                        <li>NO dejar caer (Productos en aluminio)</li>
+                    </ul>
+                </details>
+            </div>
+        </div>
+
+        <!-- =====================================================
+             GRID DE PRODUCTOS (cargado dinámicamente con JS)
+             ===================================================== -->
+        <div id="productsGrid" class="products-grid">
+            <p>Cargando productos...</p>
+        </div>
+    </div>
+</main>
+
+<div id="footer-placeholder"></div>
+
+<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+<script src="js/include.js"></script>
+<script src="js/products.js"></script>
+<script src="js/search.js"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Carrusel sin flechas (solo paginación)
+        new Swiper('.mySwiper', {
+            pagination: { el: '.swiper-pagination', clickable: true },
+            autoplay: { delay: 5000 },
+            loop: true,
+            navigation: false
+        });
+        
+        // Lightbox para imágenes del carrusel
+        const carruselImages = document.querySelectorAll('.carrusel-img-clickable');
+        carruselImages.forEach(img => img.addEventListener('click', function(e) {
+            openLightbox(e.target.src);
+        }));
+        
+        // Lightbox para vídeos (ampliables al hacer clic)
+        const videos = document.querySelectorAll('.video-clickable');
+        videos.forEach(video => {
+            video.addEventListener('click', function() {
+                const videoSrc = this.querySelector('source')?.src;
+                if (videoSrc) openVideoLightbox(videoSrc);
+            });
+        });
+    });
+    
+    /* Función para mostrar imagen en pantalla completa */
+   /*  function openLightbox(imgSrc) {
+        const lightbox = document.createElement('div');
+        lightbox.style.cssText = 'position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.9); z-index:9999; display:flex; align-items:center; justify-content:center; cursor:pointer;';
+        const img = document.createElement('img');
+        img.src = imgSrc;
+        img.style.cssText = 'max-width:90%; max-height:90%; border-radius:12px;';
+        lightbox.appendChild(img);
+        lightbox.addEventListener('click', () => lightbox.remove());
+        document.body.appendChild(lightbox);
+    } */
+    
+    /* Función para reproducir vídeo en modal */
+    function openVideoLightbox(videoSrc) {
+        const lightbox = document.createElement('div');
+        lightbox.style.cssText = 'position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.9); z-index:9999; display:flex; align-items:center; justify-content:center; cursor:pointer;';
+        const video = document.createElement('video');
+        video.src = videoSrc;
+        video.controls = true;
+        video.autoplay = true;
+        video.muted = false;
+        video.style.cssText = 'max-width:90%; max-height:90%; border-radius:12px;';
+        lightbox.appendChild(video);
+        lightbox.addEventListener('click', () => {
+            video.pause();
+            lightbox.remove();
+        });
+        document.body.appendChild(lightbox);
+        video.play();
+    }
+</script>
+</body>
+</html>
